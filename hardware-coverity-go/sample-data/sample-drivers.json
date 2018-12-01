@@ -1,0 +1,101 @@
+{
+  // None of this makes sense to any human, trying to avoid getting sued with inaccurate or propriatary information
+  "fitter-pack": [
+    {
+      "name": "fitter-pack-2",
+      "type": "board-fitter",
+      "fit-type": "all",
+      "tags": [
+        "entel-nook",
+        "entel-walnutcreek",
+        "soda-lake"
+      ]
+    },
+    {
+      "name": "fitter-pack-6123",
+      "type": "board-fitter",
+      "fit-type": "all",
+      "tags": [
+        "entel-sandytunnel",
+        "entel-harrisvill"
+      ]
+    },
+    {
+      "name": "fitter-pack-appendages",
+      "type": "board-fitter",
+      "tags": [
+        "zincmp"
+      ]
+    },
+    {
+      "name": "io-pack1",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "sata",
+        "m.2",
+        "optane"
+      ]
+    },
+    {
+      "name": "io-pack2",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "x86",
+        "x64",
+        "audio",
+        "sdio",
+        "usb2",
+        "usb3"
+      ]
+    },
+    {
+      "name": "io-pack2l",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "leg32",
+        "leg64",
+        "audio",
+        "sdio",
+        "usb2",
+        "usb3"
+      ]
+    },
+    {
+      "name": "io-pack3",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "gigabit",
+        "integrated-networking"
+      ]
+    },
+    {
+      "name": "io-pack4",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "x86",
+        "raid",
+        "virtio",
+        "ecc",
+        "optane"
+      ]
+    },
+    {
+      "name": "io-pack5",
+      "type": "device-fitter",
+      "device-type": "virt",
+      "tags": [
+        "x64",
+        "raid",
+        "virtio",
+        "ecc",
+        "optane"
+      ]
+    }
+
+  ]
+}
