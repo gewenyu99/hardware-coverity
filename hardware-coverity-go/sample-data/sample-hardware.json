@@ -1,6 +1,4 @@
 {
-  // This is all fake data, I hope you'd realise without me saying
-//  Please, don't sue me!
   "harwareList": [
     {
       "board-name": "test-lab-1",
@@ -122,3 +120,4 @@
     }
   ]
 }
+
