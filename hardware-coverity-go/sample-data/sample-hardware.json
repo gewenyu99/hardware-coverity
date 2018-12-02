@@ -63,7 +63,7 @@
       "usb2": true,
       "gigabit": false,
       "integrated-networking": true,
-      "hdmi": fakse,
+      "hdmi": false,
       "sata": false,
       "m.2": false,
       "optane": false,

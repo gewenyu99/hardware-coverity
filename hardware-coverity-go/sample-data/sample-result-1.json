@@ -1,0 +1,11 @@
+{
+  "pass": false,
+  "config": {
+    "target": "test-lab-1",
+    "enabled_io": [
+      "usb2",
+      "hdmi",
+      "graphics"
+    ]
+  }
+}
