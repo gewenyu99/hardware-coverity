@@ -15,3 +15,6 @@ As a demo, we are taking advantage of the infrastructure which is pre-existing, 
 To be honest, graph based data types are perfect for this type of work, why we used ES and aggregations is simply to take advantage of the pre-existing infrasturecture.
 
 ## How do I try this out?
+
+## Some code I borrowed
+I found an incredibly helpful jist here for json requests in GO: https://gist.github.com/Tinker-S/52ae0f981d7b86e0b34f
