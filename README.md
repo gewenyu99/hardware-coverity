@@ -16,5 +16,5 @@ To be honest, graph based data types are perfect for this type of work, why we u
 
 ## How do I try this out?
 
-## Some code I borrowed
+## Credits
 I found an incredibly helpful jist here for json requests in GO: https://gist.github.com/Tinker-S/52ae0f981d7b86e0b34f
