@@ -6,7 +6,7 @@
 #
 # required = ["github.com/user/thing/cmd/thing"]
 # ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
-#
+ignored = ["github.com/gewenyu99/hardware-coverity/hardware-coverity-go/coverity"]
 # [[constraint]]
 #   name = "github.com/user/project"
 #   version = "1.0.0"

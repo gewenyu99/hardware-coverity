@@ -19,19 +19,30 @@ func LoadSample(esClient *elastic.Client) {
 
 	bulkService := esClient.Bulk()
 
-	for _, driver := range drivers.FitterPack {
-		fmt.Println(driver)
-		bulkService = bulkService.Add(elastic.NewBulkIndexRequest().Index("driver").Type("doc").Doc(driver))
-	}
+	mapping := `{
+		"properties":{
+			"tags":{ 
+				"type":     "text",
+				"fielddata": true
+			}
+		}
+	}`
+
 	for _, hardware := range hardwares.Hardware {
 		fmt.Println(hardware)
 		bulkService = bulkService.Add(elastic.NewBulkIndexRequest().Index("hardware").Type("doc").Doc(hardware))
+	}
+
+	for _, driver := range drivers.FitterPack {
+		fmt.Println(driver)
+		bulkService = bulkService.Add(elastic.NewBulkIndexRequest().Index("driver").Type("doc").Doc(driver))
 	}
 
 	_, err = bulkService.Do(context.Background())
 	if err != nil {
 		fmt.Println(err)
 	}
+	esClient.PutMapping().Index("driver").Type("doc").BodyString(mapping).Do(context.Background())
 }
 
 func loadSampleDrivers() (error, coverity.FitterPacks) {

@@ -70,6 +70,8 @@ type Risk struct {
 func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, error) {
 	// verify the validity of what
 
+	fmt.Println("Not on dep!")
+
 	var result TestResult
 	byteResult, err := ioutil.ReadAll(raw_result)
 	if err != nil {
@@ -87,22 +89,20 @@ func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, err
 
 	boardQuery := elastic.NewTermQuery("board-name.keyword", result.Config.Target)
 
-	sr, err := esClient.Search().Index("hardware").Type("doc").Query(boardQuery).Do(context.Background())
+	searchResult, err := esClient.Search().Index("hardware").Type("doc").Query(boardQuery).Do(context.Background())
 
 	if err != nil {
 		log.Fatal(err)
 		return Report{}, err
 	}
-	hw, err := decodeBoard(sr)
+	hw, err := decodeBoard(searchResult)
 
 	if err != nil {
 		log.Fatal(err)
 		return Report{}, err
 	}
 
-	fmt.Println(hw)
-
-	var buckets []string
+	dquery := elastic.NewTermsAggregation().Field("tags").Size(30)
 
 	for i := 0; i < reflect.ValueOf(hw).NumField(); i++ {
 		val := reflect.ValueOf(hw).Field(i)
@@ -110,26 +110,32 @@ func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, err
 
 		switch t := val.Interface().(type) {
 		case bool:
-			fmt.Printf("found bool")
 			tag := valType.Tag.Get("json")
 			if tag != "" {
-				buckets = append(buckets, tag)
+				findRisks(esClient, dquery.Include(tag))
 			}
 		case string:
-			fmt.Printf("found string")
 			tag := val.Interface()
 			if tag != "" {
-				buckets = append(buckets, tag.(string))
+				findRisks(esClient, dquery.Include(tag.(string)))
 			}
 		default:
-			fmt.Printf("I don't know about type %T!\n", t)
+			log.Println("the following was ignored: ", t, val)
 		}
 	}
-	fmt.Println(buckets)
 
-	// queries for the related drivers
+	// queries for the related driver
 
 	return Report{}, nil
+}
+
+func findRisks(esClient *elastic.Client, dquery *elastic.TermsAggregation) {
+	searchResult, err := esClient.Search().Index("driver").Type("doc").Query(elastic.NewMatchAllQuery()).Aggregation("driver", dquery).Pretty(true).Do(context.Background())
+	drivers, err := decodeFitterPack(searchResult)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(drivers)
 }
 
 func decodeBoard(res *elastic.SearchResult) (Hardware, error) {
@@ -145,3 +151,23 @@ func decodeBoard(res *elastic.SearchResult) (Hardware, error) {
 	}
 	return hw, nil
 }
+
+func decodeFitterPack(res *elastic.SearchResult) ([]Driver, error) {
+	if res == nil || res.TotalHits() == 0 {
+		return []Driver{}, errors.New("The test fitter pack doesn't exist")
+	}
+
+	var d []Driver
+
+	for i := int64(0); i < res.Hits.TotalHits; i ++{
+		temp := Driver{}
+		err := json.Unmarshal(*res.Hits.Hits[i].Source, &temp)
+		if err != nil {
+			log.Fatal(err)
+			return []Driver{}, err
+		}
+		d = append(d, temp)
+	}
+	return d, nil
+}
+
