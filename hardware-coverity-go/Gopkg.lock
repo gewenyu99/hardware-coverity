@@ -3,6 +3,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/gewenyu99/hardware-coverity"
+  packages = ["json_requests"]
+  revision = "0ba5104bd3b31f6255f20b2fbab8a4f960b9be4b"
+
+[[projects]]
+  branch = "master"
   name = "github.com/mailru/easyjson"
   packages = [".","buffer","jlexer","jwriter"]
   revision = "60711f1a8329503b04e1c88535f419d0bb440bff"
@@ -22,6 +28,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8e060d1e56ff68dc2f7de3f40f4c43fb056197eda9e2342f612147f2e4d1287d"
+  inputs-digest = "063185bacfbceef44876542d31a4fa1372fcdb4c7d366571340bb388f4c86520"
   solver-name = "gps-cdcl"
   solver-version = 1

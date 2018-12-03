@@ -9,6 +9,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"reflect"
 )
 
 type Hardware struct {
@@ -45,7 +46,6 @@ type FitterPacks struct {
 	FitterPack []Driver `json:"fitter-pack"`
 }
 
-
 type Report struct {
 	Count int    `json:"count"`
 	Risks []Risk `json:"risks"`
@@ -68,6 +68,8 @@ type Risk struct {
 }
 
 func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, error) {
+	// verify the validity of what
+
 	var result TestResult
 	byteResult, err := ioutil.ReadAll(raw_result)
 	if err != nil {
@@ -81,6 +83,7 @@ func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, err
 		return Report{}, err
 	}
 
+	// queries for the board in question
 
 	boardQuery := elastic.NewTermQuery("board-name.keyword", result.Config.Target)
 
@@ -99,9 +102,35 @@ func SingleTest(raw_result io.ReadCloser, esClient *elastic.Client) (Report, err
 
 	fmt.Println(hw)
 
+	var buckets []string
+
+	for i := 0; i < reflect.ValueOf(hw).NumField(); i++ {
+		val := reflect.ValueOf(hw).Field(i)
+		valType := reflect.TypeOf(hw).Field(i)
+
+		switch t := val.Interface().(type) {
+		case bool:
+			fmt.Printf("found bool")
+			tag := valType.Tag.Get("json")
+			if tag != "" {
+				buckets = append(buckets, tag)
+			}
+		case string:
+			fmt.Printf("found string")
+			tag := val.Interface()
+			if tag != "" {
+				buckets = append(buckets, tag.(string))
+			}
+		default:
+			fmt.Printf("I don't know about type %T!\n", t)
+		}
+	}
+	fmt.Println(buckets)
+
+	// queries for the related drivers
+
 	return Report{}, nil
 }
-
 
 func decodeBoard(res *elastic.SearchResult) (Hardware, error) {
 	if res == nil || res.TotalHits() == 0 {
@@ -116,5 +145,3 @@ func decodeBoard(res *elastic.SearchResult) (Hardware, error) {
 	}
 	return hw, nil
 }
-
-
