@@ -23,5 +23,9 @@ func example_result_1() {
 	defer example_result.Close()
 	example, _ := ioutil.ReadAll(example_result)
 	fmt.Println(string(example))
-	json_requests.Post("http://localhost:8080/singleTestEntry", string(example))
+	resp := json_requests.Post("http://localhost:8080/singleTestEntry", string(example))
+	if resp == "" {
+		panic("Ooooooooooooooooooooopppps")
+	}
+	fmt.Println(resp)
 }
