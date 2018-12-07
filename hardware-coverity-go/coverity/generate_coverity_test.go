@@ -16,7 +16,7 @@ func TestSingleTest(t *testing.T) {
 func example_result_1() {
 	GOPATH := os.Getenv("GOPATH")
 	fmt.Println(GOPATH)
-	example_result, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity/hardware-coverity-go/sample-data/sample-result-1.json"}, ""))
+	example_result, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity1/hardware-coverity1-go/sample-data/sample-result-1.json"}, ""))
 	if err != nil {
 		fmt.Println(err)
 	}

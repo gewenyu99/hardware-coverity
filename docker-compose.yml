@@ -1,14 +1,17 @@
 version: '3'
 
 services:
-#  hardware-coverity:
-#    container_name: hardware-coverity
-#    build:
-#      context: hardware-coverity-go/
-#    ports:
-#    - '666:666'
-#    networks:
-#    - hc
+  hardware-coverity:
+    container_name: hardware-coverity1
+    build:
+      context: hardware-coverity-go/
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+    ports:
+    - '8080:8080'
+    networks:
+    - hc
   #ELK
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
@@ -25,6 +28,11 @@ services:
       memlock:
         soft: -1
         hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
     - hc
   kibana:
@@ -38,9 +46,10 @@ services:
     - "5601:5601"
     networks:
     - hc
+    restart: on-failure
     depends_on:
-    - elasticsearch
-#
+      - elasticsearch
+# There's no real use case for this in a demo.
 #  logstash:
 #    image: docker.elastic.co/logstash/logstash:6.4.3
 #    container_name: logstash

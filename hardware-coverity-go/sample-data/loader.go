@@ -48,7 +48,7 @@ func LoadSample(esClient *elastic.Client) {
 func loadSampleDrivers() (error, coverity.FitterPacks) {
 	GOPATH := os.Getenv("GOPATH")
 	fmt.Println(GOPATH)
-	driversFile, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity/hardware-coverity-go/sample-data/sample-drivers.json"}, ""))
+	driversFile, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity1/hardware-coverity1-go/sample-data/sample-drivers.json"}, ""))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -66,7 +66,7 @@ func loadSampleDrivers() (error, coverity.FitterPacks) {
 func loadSampleHardware() (error, coverity.HardwareList) {
 	GOPATH := os.Getenv("GOPATH")
 	fmt.Println(GOPATH)
-	hardwareFile, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity/hardware-coverity-go/sample-data/sample-hardware.json"}, ""))
+	hardwareFile, err := os.Open(strings.Join([]string{GOPATH, "/src/github.com/gewenyu99/hardware-coverity1/hardware-coverity1-go/sample-data/sample-hardware.json"}, ""))
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -14,7 +14,12 @@ As a demo, we are taking advantage of the infrastructure which is pre-existing, 
 ## Why not GraphQL?
 To be honest, graph based data types are perfect for this type of work, why we used ES and aggregations is simply to take advantage of the pre-existing infrasturecture.
 
+This demo must show the viability of this concept with existing dev power, remapping all our data from ES to somewhere else was not something our teams would have bought.
 ## How do I try this out?
+Pull and ```run docker-compose up --build``` :)
+
+This was used for a short little demo, it will auto import some test data, and we used POSTMAN to make post calls.
+
 
 ## Credits
 I found an incredibly helpful jist here for json requests in GO: https://gist.github.com/Tinker-S/52ae0f981d7b86e0b34f

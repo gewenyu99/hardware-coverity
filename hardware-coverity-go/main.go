@@ -10,7 +10,7 @@ import (
 import "github.com/gewenyu99/hardware-coverity/hardware-coverity-go/sample-data"
 
 func main() {
-	esClient, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"))
+	esClient, err := elastic.NewClient(elastic.SetURL("http://elasticsearch:9200"))
 	if err != nil {
 		log.Fatal(err)
 	}
