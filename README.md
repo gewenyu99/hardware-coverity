@@ -1,7 +1,7 @@
 ## What is this?
 This project in inspired by the embedded OS development I did at a prior internship. This repository demonstrates the high level concepts of a project I worked on during my tenure, with a very stripped down data set (for obvious reasons). 
 
-In essence, without real data and logic, a glorified abstraction ELK aggregation api.
+In essence, without real data and logic, a glorified abstraction of ELK aggregation api.
 
 The intent is to generate meaningful analytics on errors to discover other potential affected hardware, driver and firmware.
 
