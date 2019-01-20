@@ -1,5 +1,5 @@
 ## What is this?
-This project in inspired by the embedded OS development I did at a prior internship. This repository demonstrates the high level concepts of a project I worked on during my tenure, with a very stripped down data set (for obvious reasons). 
+This project in inspired by the embedded OS development I did at a prior internship. This repository abstracts some concepts of a project I worked on during my tenure, with a fictional dataset and stripped down logic (for obvious reasons). 
 
 In essence, without real data and logic, a glorified abstraction of ELK aggregation api.
 
